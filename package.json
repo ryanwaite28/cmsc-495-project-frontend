@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run start-server",
-    "start-server": "nodemon server.js",
+    "start-server": "node server.js",
     "build-start": "npm run build-aot && npm run start-server",
     "start-dev": "ng serve --port 7600",
     "start-dev-proxy": "ng serve --proxy-config proxy.config.json --port 7600",
