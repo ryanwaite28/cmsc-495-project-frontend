@@ -1,0 +1,106 @@
+<div class="container row-pad-1">
+  <div class="card">
+    <div class="no-gutters row">
+      <div class="col-md-4 messagings-list">
+        <div class="messagings-item transition" *ngFor="let m of messagings_list" (click)="setMessaging(m)">
+          <div class="messagings-item-inner">
+            <div class="user-icon-container-left">
+              <img
+                class="user-icon-circle"
+                [src]="m.other.icon_link || './assets/img/anon.png'"
+              />
+            </div>
+            <p>
+              {{ m.other.username }}
+              &nbsp; 
+              <span *ngIf="m.unread_messages_count && m.unread_messages_count > 0" class="badge badge-info">{{ m.unread_messages_count }}</span>
+              <br/>
+              <small class="text-grey"><em>{{ (m.date_created) | date : 'MMM d, y (h:mm a)' }}</em></small>
+            </p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-8" *ngIf="currentMessagingSelected">
+        <div class="messages-item transition" *ngIf="!messages_list_end">
+          <button
+            (click)="getMessages()"
+            title="Load more"
+            class="btn btn-sm btn-success"
+            [disabled]="loading"
+          >
+            <i class="fas fa-sync"></i>
+            Load More
+          </button>
+        </div>
+
+        <div class="messages-item transition" *ngFor="let m of messages_list">
+          <div class="messages-item-inner">
+            <div class="user-icon-container-{{ m.from.id === you.id ? 'right' : 'left' }}">
+              <img
+                class="user-icon-circle"
+                [src]="(m.from.icon_link) || './assets/img/anon.png'"
+              />
+            </div>
+            <div class="message-text-{{ m.from.id === you.id ? 'right' : 'left' }}">
+              <p>
+                <a [routerLink]="['/', 'users', m.from.id, 'home']">
+                 {{ m.from.username }}
+                </a>
+                <br/>
+                <span class="lead" [innerHTML]="m.body"></span>
+                <br/>
+                <small class="text-grey">
+                  <em>{{ m.date_created | date : 'MMM d, y (h:mm a)' }}</em>
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="messages-item transition" *ngIf="userIsTyping">
+          <p class="text-grey">
+            <i class="fas fa-comment-dots"></i>
+            &nbsp;
+            <small>
+              <em>
+                {{ 
+                  currentMessagingSelected.sender_id === you.id
+                    ? currentMessagingSelected.user.username
+                    : currentMessagingSelected.sender.username
+                }} is typing...
+              </em>
+            </small>
+          </p>
+        </div>
+
+        <div class="messages-item transition">
+          <form class="" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+            <div class="form-group">
+              <label for="">
+                <span class="label-info text-grey">
+                  <small>({{ messageForm.value.body.length }}/{{ MSG_MAX_LENGTH }})</small>
+                </span>
+              </label>
+              <textarea type="text" class="form-control"
+                placeholder="Enter message..."
+                formControlName="body">
+              </textarea>
+            </div>
+            <div>
+              <button
+                type="submit"
+                title="Message this user"
+                class="btn btn-sm btn-success"
+                [disabled]="loading || !messageForm.value.body.trim().length"
+              >
+                <i class="fas fa-paper-plane"></i>
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

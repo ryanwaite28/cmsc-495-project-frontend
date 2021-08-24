@@ -1,0 +1,61 @@
+<div class="comment-container card space-bottom">
+  <div class="card-body">
+    <div class="">
+      <div class="flex-inline-slim">
+        <div class="margin-right-20">
+          <img
+            class="comment-owner-icon"
+            [src]="comment.owner.icon_link || './assets/img/anon.png'"
+          />
+        </div>
+
+        <div>
+          <p class="inline-block margin-bottom-5">
+            <strong>
+              <a [routerLink]="['/', 'users', comment.owner.id]">
+                {{ comment.owner.username }}
+              </a>
+            </strong>
+             • <small><span ngbTooltip="{{ comment.date_created | date : 'MMM d, y - h:mm a' }}">
+              {{ comment.date_created | timeAgo }}
+            </span></small>
+          </p>
+
+          <p class="margin-bottom-5" [innerHTML]="comment.body"></p>
+          
+          <div class="flex-inline-slim">
+            <ng-container *ngIf="isYourComment">
+              <div class="dropdown margin-right-10">
+                <span class="cursor-pointer comment-menu-btn-container transition" (click)="editorIsOpen = !editorIsOpen">
+                  <i class="fas fa-edit"></i> {{ editorIsOpen ? 'Cancel Edit' : 'Edit' }}
+                </span>
+              </div>
+              <div class="dropdown margin-right-10">
+                <span class="cursor-pointer comment-menu-btn-container transition" (click)="deleteComment()">
+                  <i class="fas fa-trash"></i> Delete
+                </span>
+              </div>
+            </ng-container>
+
+            <div class="dropdown margin-right-10">
+              <span class="like-btn cursor-pointer" (click)="toggleLike()">
+                <i class="fa{{ you_liked ? 's' : 'r' }} fa-thumbs-up"></i> {{ likes.length }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+
+    <div *ngIf="editorIsOpen">
+      <app-comment-form
+        [loading]="loading"
+        [is_editing]="true"
+        [comment]="comment"
+        (onFormSubmit)="updateComment($event)"
+      ></app-comment-form>
+    </div>
+  </div>
+</div>

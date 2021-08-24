@@ -1,0 +1,19 @@
+#app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.App {
+  margin-top: 56px;
+}
+
+#alerts-box {
+  position: fixed;
+  display: block;
+  z-index: 100;
+  bottom: 5px;
+  left: 5px;
+  width: 500px;
+  max-width: 100%;
+}
+

@@ -1,0 +1,23 @@
+<div id="alerts-list-container">
+  <!-- <div
+    *ngFor="let currentAlert of alertsList; index as i"
+    class="alert alert-{{ currentAlert.type }}"
+    role="alert"
+  >
+    <span>{{ currentAlert.message }}</span>
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert(currentAlert)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div> -->
+
+  <div
+    *ngIf="alertsList.length"
+    class="alert alert-{{ alertsList[0].type }}"
+    role="alert"
+  >
+    <span>{{ alertsList[0].message }}  <span *ngIf="alertsList.length > 1" class="badge badge-dark">{{ alertsList.length }}</span></span>
+    <button type="button" class="btn btn-small btn-{{ alertsList[0].type }}" aria-label="Close" (click)="closeAlert(alertsList[0])">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>

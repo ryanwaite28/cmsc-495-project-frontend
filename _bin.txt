@@ -1,0 +1,17 @@
+npm install ng-select @ng-select/ng-select @fortawesome/fontawesome-free @fortawesome/free-brands-svg-icons @fortawesome/free-solid-svg-icons @ng-bootstrap/ng-bootstrap @fortawesome/angular-fontawesome bootstrap express express-force-https nodemon popper.js jquery ngx-toaster ngx-bootstrap moment
+
+
+
+PS C:\Users\user\Desktop\cmsc495-project-client> npm run start-dev
+
+> cmsc495-project-client@0.0.0 start-dev C:\Users\user\Desktop\cmsc495-project-client
+> ng serve --port 7600
+
+? Would you like to share anonymous usage data about this project with the Angular Team at
+Google under Google’s Privacy Policy at https://policies.google.com/privacy? For more
+details and how to change this setting, see http://angular.io/analytics. Yes
+
+Thank you for sharing anonymous usage data. Would you change your mind, the following
+command will disable this feature entirely:
+
+    ng analytics project off

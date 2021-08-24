@@ -1,0 +1,66 @@
+<div class="card user-card">
+  <img class="card-img-top user-image" [src]="user.icon_link || './assets/img/anon.png'" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ user.displayname }} <span *ngIf="isYou"><small>(you)</small></span></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><a [routerLink]="['/', 'users', user.id]">@{{ user.username }}</a></h6>
+    <p class="card-text">{{ user.bio || 'No bio...' }}</p>
+    <div class="user-badges">
+      <span class=""><span class="font-weight-bold">{{ followers.length }}</span> Followers</span>
+      &nbsp;
+      <span class=""><span class="font-weight-bold">{{ followings.length }}</span> Following</span>
+    </div>
+    <br/>
+
+    <button
+      [disabled]="loading || isYou"
+      (click)="toggleFollow()"
+      data-toggle="tooltip"
+      class="btn btn-sm btn-{{ isFollowing ? 'info' : 'light' }}"
+      type="button"
+      placement="top"
+      [ngbTooltip]="(isFollowing ? 'Unfollow' : 'Follow') + ' this user'"
+    >
+      <i class="fa{{ isFollowing ? 's' : 'r' }} fa-star"></i>
+    </button>
+    &nbsp;
+
+    <button
+      [disabled]="loading || isYou"
+      (click)="toggleShowMessageForm()"
+      class="btn btn-sm btn-primary"
+      type="button"
+      placement="top"
+      [ngbTooltip]="(messageFormIsOpen ? 'Close' : 'Message User')"
+    >
+      <i class="fas fa-{{ messageFormIsOpen ? 'times' : 'envelope' }}"></i>
+    </button>
+
+    <div *ngIf="isNotYou && messageFormIsOpen">
+      <br/>
+      <form class="well" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+        <div class="form-group">
+          <label for="">
+            Body <span class="label-info text-grey">
+              <small>({{ messageForm.value.body.length }}/{{ MSG_MAX_LENGTH }})</small>
+            </span>
+          </label>
+          <textarea type="text" class="form-control"
+            placeholder="Enter message..."
+            formControlName="body">
+          </textarea>
+        </div>
+        <div>
+          <button
+            type="submit"
+            title="Message this user"
+            class="btn btn-sm btn-success"
+            [disabled]="loading"
+          >
+          <i class="fas fa-paper-plane"></i>
+          Submit
+        </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

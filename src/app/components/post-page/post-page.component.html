@@ -1,0 +1,21 @@
+<div class="post-page-container container row-pad-1">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div *ngIf="post === undefined"></div>
+
+      <div *ngIf="post === null" class="card">
+        <div class="card-body">
+          <h3>No post found...</h3>
+        </div>
+      </div>
+
+      <div *ngIf="post">
+        <app-post
+          [you]="you"
+          [post]="post"
+          (onDelete)="onDeletePost(post)"
+        ></app-post>
+      </div>
+    </div>
+  </div>
+</div>

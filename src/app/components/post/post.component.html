@@ -1,0 +1,102 @@
+<div class="post-container card space-bottom">
+  <div class="card-body">
+    <div class="">
+      <div class="flex-inline-slim">
+        <div class="margin-right-20">
+          <img
+            class="post-owner-icon"
+            [src]="post.owner.icon_link || './assets/img/anon.png'"
+          />
+        </div>
+        <div class="flex-item-grow-1">
+          <p class="inline-block margin-bottom-5">
+            <strong>
+              <a [routerLink]="['/', 'users', post.owner.id]">
+                {{ post.owner.username }}
+              </a>
+            </strong>
+             • <small><span ngbTooltip="{{ post.date_created | date : 'MMM d, y - h:mm a' }}">
+              <a [routerLink]="['/', 'posts', post.id]">
+                {{ post.date_created | timeAgo }}
+              </a>
+            </span></small>
+          </p>
+
+          <p class="lead" [innerHTML]="post.title"></p>
+          <p class="" [innerHTML]="post.body"></p>
+
+          <div class="flex-inline-slim">
+            <ng-container *ngIf="isYourPost">
+              <div class="dropdown margin-right-10">
+                <span class="cursor-pointer post-menu-btn-container transition" (click)="editorIsOpen = !editorIsOpen">
+                  <i class="fas fa-edit"></i> {{ editorIsOpen ? 'Cancel Edit' : 'Edit' }}
+                </span>
+              </div>
+              <div class="dropdown margin-right-10">
+                <span class="cursor-pointer post-menu-btn-container transition" (click)="deletePost()">
+                  <i class="fas fa-trash"></i> Delete
+                </span>
+              </div>
+            </ng-container>
+
+            <div class="dropdown margin-right-10">
+              <span class="cursor-pointer like-btn" (click)="toggleLike()">
+                <i class="fa{{ you_liked ? 's' : 'r' }} fa-thumbs-up"></i> {{ likes.length }}
+              </span>
+            </div>
+
+            <div class="dropdown margin-right-10">
+              <span class="cursor-pointer post-menu-btn-container transition" (click)="toggleShowComments()">
+                <i class="far fa-comment-dots"></i> {{ showComments ? 'Hide Comments' : 'Comments' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!--  -->
+
+    <div *ngIf="editorIsOpen">
+      <app-post-form
+        [loading]="loading"
+        [is_editing]="true"
+        [post]="post"
+        (onFormSubmit)="updatePost($event)"
+      ></app-post-form>
+    </div>
+
+    <div *ngIf="showComments">
+      <hr/>
+      <div *ngIf="you" class="space-bottom">
+        <app-comment-form
+          [loading]="loading"
+          [is_editing]="false"
+          [comment]="null"
+          (onFormSubmit)="createComment($event)"
+        ></app-comment-form>
+      </div>
+
+      <app-comment
+        *ngFor="let comment of comments"
+        [you]="you"
+        [comment]="comment"
+        (onDelete)="onDeleteComment(comment)"
+      ></app-comment>
+
+      <!-- <div class="" *ngIf="!end_reached">
+        <button
+          (click)="getComments()"
+          title="Load more"
+          class="btn btn-sm btn-success"
+          [disabled]="loading"
+        >
+          <i class="fas fa-sync"></i>
+          Load More
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

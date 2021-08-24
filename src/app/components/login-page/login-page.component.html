@@ -1,0 +1,35 @@
+<div class="container app-login-container row-pad-1">
+  <div class="row card card-body">
+      <div class="col-md-12">
+        <h3 class="display-4">Log In</h3>
+        <p *ngIf="errorMessage" class="lead">{{ errorMessage }}<br/></p>
+        
+        <form class="row-pad-1" *ngIf="true" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="">
+              Username <span class="label-info">
+                ({{ loginForm.value.username.length }}/{{ TEXT_FORM_LIMIT }})
+              </span>
+            </label>
+            <input type="username" class="form-control"
+              placeholder="Username"
+              formControlName="username">
+          </div>
+          <div class="form-group">
+            <label for="">
+              Password <span class="label-info">
+                ({{ loginForm.value.password.length }}/{{ TEXT_FORM_LIMIT }})
+              </span>
+            </label>
+            <!-- <p>Password must be: at least 7 characters, upper and/or lower case alphanumeric</p> -->
+            <input type="password" class="form-control" 
+              placeholder="Password"
+              formControlName="password">
+          </div>
+          <br/>
+          <button type="submit" class="btn btn-sm btn-primary"
+            [disabled]="!loginForm.valid || loading">Submit</button>
+        </form>
+      </div>
+  </div>
+</div>

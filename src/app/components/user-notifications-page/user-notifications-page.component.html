@@ -1,0 +1,26 @@
+<div class="container row-pad-1">
+  <div>
+    <div class="col-md-12 card" *ngIf="!notifications.length" >
+      <div class="card-body">
+        <h1 class="display-5">None for now...</h1>
+      </div>
+    </div>
+
+    <div *ngFor="let notification of notifications">
+      <div class="col-md-12 card">
+        <div class="card-body">
+          <div class="overflow-hidden flex-inline-slim">
+            <div class="space-right">
+              <img [src]="notification.from.icon_link || './assets/img/anon.png'" class="user-icon-circle" />
+            </div>
+            <div>
+              <p class="lead">{{ notification.message }}</p>
+              <p class="text-grey"><small><em>{{ notification.date_created | date : 'MMM d, y (h:mm a)' }}</em></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+    </div>
+  </div>
+</div>

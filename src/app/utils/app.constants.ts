@@ -1,0 +1,1 @@
+export const APP_JWT_NAME = `cmsc495-session-jwt`;

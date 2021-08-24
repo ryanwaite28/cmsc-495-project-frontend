@@ -1,0 +1,45 @@
+<div class="container row-pad-1">
+  <div class="row" *ngIf="user">
+    <div class="col-md-4">
+      <app-user-card
+        [user]="user"
+      ></app-user-card>
+    </div>
+    <div class="col-md-8">
+      <app-post-form
+        *ngIf="isYou"
+        [loading]="loading"
+        [is_editing]="false"
+        [post]="null"
+        (onFormSubmit)="createPost($event)"
+      ></app-post-form>
+
+      <div class="card space-bottom" *ngIf="!posts.length">
+        <div class="card-body">
+          <h3>
+            No posts for now.
+          </h3>
+        </div>
+      </div>
+    
+      <app-post
+        *ngFor="let post of posts"
+        [you]="you"
+        [post]="post"
+        (onDelete)="onDeletePost(post)"
+      ></app-post>
+    
+      <div class="" *ngIf="!end_reached">
+        <button
+          (click)="getPosts()"
+          title="Load more"
+          class="btn btn-sm btn-success"
+          [disabled]="loading"
+        >
+          <i class="fas fa-sync"></i>
+          Load More
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

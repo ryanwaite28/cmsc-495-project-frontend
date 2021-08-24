@@ -1,0 +1,9 @@
+<div class="container row-pad-1">
+  <div class="margin-bottom-20" *ngFor="let post of posts">
+    <app-post
+      [you]="you"
+      [post]="post"
+      (onDelete)="onDeletePost(post)"
+    ></app-post>
+  </div>
+</div>
