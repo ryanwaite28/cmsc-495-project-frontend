@@ -38,13 +38,13 @@ const routes: Routes = [
     data: { authParamsProp: 'user_id' },
     resolve: { user: UserResolver },
   },
-  // {
-  //   path: 'users/:user_id/settings',
-  //   pathMatch: 'full',
-  //   component: UserSettingsPageComponent,
-  //   data: { authParamsProp: 'user_id' },
-  //   canActivate: [UserAuthGuard],
-  // },
+  {
+    path: 'users/:user_id/settings',
+    pathMatch: 'full',
+    component: UserSettingsPageComponent,
+    data: { authParamsProp: 'user_id' },
+    canActivate: [UserAuthGuard],
+  },
   {
     path: 'users/:user_id/messages',
     pathMatch: 'full',

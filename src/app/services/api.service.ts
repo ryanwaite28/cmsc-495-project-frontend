@@ -153,6 +153,11 @@ export class ApiService extends ClientService {
     );
   }
 
+  update_password(data: PlainObject) {
+    const endpoint = `/update_password`;
+    return this.sendRequest<PlainObject>(endpoint, `PUT`, data);
+  }
+
   update_icon(formData: FormData) {
     const endpoint = `/update_icon`;
     return this.sendRequest<PlainObject>(endpoint, `PUT`, formData).pipe(

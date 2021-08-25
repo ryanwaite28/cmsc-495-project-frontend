@@ -103,11 +103,11 @@ export class UserCardComponent implements OnInit {
     ).subscribe({
       next: (response) => {
         if (response.following) {
-          this.followings.push(response.following);
+          this.followers.push(response.following);
           this.isFollowing = true;
         } else {
           const index = this.followings.findIndex(f => f.user.id === this.you.id && f.follows.id == this.user.id);
-          this.followings.splice(index, 1);
+          this.followers.splice(index, 1);
           this.isFollowing = false;
         }
       }
