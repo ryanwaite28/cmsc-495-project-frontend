@@ -1,5 +1,7 @@
 <div class="card user-card">
-  <img class="card-img-top user-image" [src]="user.icon_link || './assets/img/anon.png'" alt="Card image cap">
+  <div class="user-img-box">
+    <img class="card-img-top user-image" [src]="user.icon_link || './assets/img/anon.png'" alt="Card image cap">
+  </div>
   <div class="card-body">
     <h5 class="card-title">{{ user.displayname }} <span *ngIf="isYou"><small>(you)</small></span></h5>
     <h6 class="card-subtitle mb-2 text-muted"><a [routerLink]="['/', 'users', user.id]">@{{ user.username }}</a></h6>
